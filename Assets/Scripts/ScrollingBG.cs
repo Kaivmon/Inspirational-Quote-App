@@ -6,47 +6,35 @@ using UnityEngine.UI;
 
 public class ScrollingBG : MonoBehaviour {
 
-    // This script moves both textures to the left, and when the first texture is off the screen, moves it back to the far right.
-    // Move both textures -1 x position per second
-    // When first texture x position reaches 0 - max width, move position to second texture position + max width.
+    public float speed = 0.2f;
+    public GameObject startingUI;
 
-    public RectTransform cloudImg1;
-    public RectTransform cloudImg2;
-    public float speed = 1;
 
-    public float rectWidth;
+    private bool isQuoteDisplayed = false;
+    private MeshRenderer meshRenderer;
 
-    void Start() {
-        rectWidth = (cloudImg1.sizeDelta.x * cloudImg1.localScale.x);
+    private void Start() {
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    // Update is called once per frame
-    void Update() {
-        StartCoroutine(ScrollLeft());
-        RetileRight();
+    private void Update() {
+
+        ScrollUp();
+    }
+    private void ScrollUp() {
+        meshRenderer.material.mainTextureOffset = new Vector2(0, Time.time * speed);
     }
 
-    private IEnumerator ScrollLeft() {
-        
-
-        Vector3 pos = cloudImg1.position;
-        pos.x -= speed;
-        cloudImg1.position = pos;
-        
-        pos = cloudImg2.position;
-        pos.x -= speed;
-        cloudImg2.position = pos;
-        yield return null;
-
-
+    public void OnButtonPress() {
+        isQuoteDisplayed = true;
+        StartCoroutine(ShowMainScreen());
     }
 
-    private void RetileRight() {
-        if(cloudImg1.position.x + rectWidth <= 0) {
-            cloudImg1.position = new Vector3(cloudImg2.position.x + rectWidth, 0, 0);
-        }
-        if (cloudImg2.position.x + rectWidth <= 0) {
-            cloudImg2.position = new Vector3(cloudImg1.position.x + rectWidth, 0, 0);
+    private IEnumerator ShowMainScreen() {
+        Vector2 pos = new Vector2(startingUI.transform.position.x, startingUI.transform.position.y - 1000);
+        while(startingUI.transform.position.y > pos.y) { 
+            startingUI.transform.position -= new Vector3(0, Time.time * speed/2, 0);
+            yield return null;
         }
     }
 }
