@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
         }
 
         startingUI.SetActive(false);
-        //quoteUI.SetActive(true);
+        quoteUI.SetActive(true);
 
 
         // Fade in the quote text.

@@ -14,8 +14,6 @@ using Unity.VisualScripting;
 
 public class QuoteFetcher : MonoBehaviour {
 
-    public string url;
-
     public JSONNode jsonResult;
 
     public TMP_Text quoteTextUI;  
@@ -26,13 +24,7 @@ public class QuoteFetcher : MonoBehaviour {
     void Awake() {
         // set the instance to be this script
         instance = this;
-    }
-
-    //Starts the coroutine to get quotes from ZenQuotes API
-    public void DoGetData() {
-
         StartCoroutine(GetSingleDailyQuote());
-    
     }
 
     // Sends an API request - returns a JSON file with just one quote
