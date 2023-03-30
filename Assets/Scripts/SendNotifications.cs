@@ -5,7 +5,7 @@ using UnityEngine;
 public class SendNotifications : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
-        var channel = new AndroidNotificationChannel()
+/*        var channel = new AndroidNotificationChannel()
         {
             Id = "channel_id",
             Name = "Default Channel",
@@ -26,7 +26,7 @@ public class SendNotifications : MonoBehaviour {
 
 
 
-
+*/
     }
 
     // Update is called once per frame
