@@ -1,16 +1,10 @@
-using System;
 using System.Collections;
 using System.Text;
-using System.Linq;
 using SimpleJSON;
 
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Networking;
 using TMPro;
-using System.IO;
-using static Unity.Burst.Intrinsics.X86;
-using Unity.VisualScripting;
 
 public class QuoteFetcher : MonoBehaviour {
 
@@ -19,10 +13,9 @@ public class QuoteFetcher : MonoBehaviour {
     public TMP_Text quoteTextUI;  
     public TMP_Text quoteAuthorUI;
 
-    // instance
+
     public static QuoteFetcher instance;
     void Awake() {
-        // set the instance to be this script
         instance = this;
         StartCoroutine(GetSingleDailyQuote());
     }
@@ -53,7 +46,7 @@ public class QuoteFetcher : MonoBehaviour {
         // Build the url and query
         webReq.url = "https://zenquotes.io/api/today";
 
-        //Wait for reply from server
+        // Wait for reply from server
         yield return webReq.SendWebRequest();
 
         // Convert the byte array to a JSON string
@@ -67,7 +60,6 @@ public class QuoteFetcher : MonoBehaviour {
         // "a" key for author
         quoteTextUI.text = jsonResult[0]["q"];
         quoteAuthorUI.text = "- " + jsonResult[0]["a"];
-
 
         // Testing result
         Debug.Log(jsonResult);
